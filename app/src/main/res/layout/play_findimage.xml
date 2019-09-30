@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:fitsSystemWindows="true"
+    android:background="@drawable/background"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_marginTop="60dp"
+        >
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="20dp"
+            android:orientation="horizontal">
+
+    <Button
+        android:layout_width="160dp"
+        android:layout_height="160dp"
+        android:id="@+id/image1"
+        android:layout_marginRight="20dp"
+        />
+
+    <Button
+        android:layout_width="160dp"
+        android:layout_height="160dp"
+        android:id="@+id/image2"
+        />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_gravity="center_horizontal">
+    <Button
+        android:layout_width="160dp"
+        android:layout_height="160dp"
+        android:id="@+id/image3"
+        android:layout_marginRight="20dp"
+        />
+    <Button
+        android:layout_width="160dp"
+        android:layout_height="160dp"
+        android:id="@+id/image4"
+        />
+        </LinearLayout>
+
+        <TextView
+            android:layout_marginTop="80dp"
+            android:layout_gravity="center"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/orange_corner"
+            android:id="@+id/texthint"
+            android:backgroundTint="@android:color/white"
+            android:gravity="center"
+            android:textColor="@android:color/black"
+            android:textSize="35sp"
+            android:textStyle="bold"
+            />
+
+    </LinearLayout>
+</RelativeLayout>

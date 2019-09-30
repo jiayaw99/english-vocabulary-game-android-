@@ -4,6 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/home"
+    android:background="@drawable/login_background"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     >
@@ -14,19 +15,26 @@
     android:layout_centerInParent="true">
 
     <Button
-        android:layout_width="wrap_content"
+        android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:id="@+id/learn_button"
+        android:background="@drawable/orange_corner"
+        android:drawableLeft="@drawable/learn"
         android:text="Learn"
-        android:textSize="50sp" />leftimage
+        android:textSize="40sp" />leftimage
 
     <Button
         android:layout_marginTop="30dp"
-        android:layout_width="wrap_content"
+        android:layout_width="220dp"
         android:layout_height="wrap_content"
         android:id="@+id/play_button"
+        android:background="@drawable/orange_corner"
+        android:backgroundTint="@android:color/holo_green_light"
+        android:drawableLeft="@drawable/play"
         android:layout_gravity="center"
         android:text="Play"
-        android:textSize="50sp" />leftimage
+        android:textSize="40sp" />leftimage
 </LinearLayout>
+
+
 </RelativeLayout>

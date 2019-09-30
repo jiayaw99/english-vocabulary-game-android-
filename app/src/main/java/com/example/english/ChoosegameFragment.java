@@ -8,37 +8,45 @@ import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
-public class HomeFragment extends Fragment {
 
+import com.example.english.R;
+
+
+public class ChoosegameFragment extends Fragment {
     private View v;
-    private DrawerLayout drawerLayout;
+    private ChoosewordFragment word=new ChoosewordFragment();
+    private FindimageFragment image=new FindimageFragment();
 
+    @Nullable
+    @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
+        v = inflater.inflate(R.layout.fragment_choosegame, container, false);
 
-        v = inflater.inflate(R.layout.fragment_home, container, false);
+       Button choose=v.findViewById(R.id.chooseword);
+       Button find=v.findViewById(R.id.findimage);
 
-        Button learn=v.findViewById(R.id.learn_button);
-        Button play=v.findViewById(R.id.play_button);
+       choose.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View view) {
+               setFragment(word,true);
+           }
+       });
 
-        learn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                setFragment(new LearnFragment(),true);
-            }
-        });
-        play.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                setFragment(new PlayFragment(),true);
-            }
-        });
+       find.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View view) {
+               setFragment(image, true);
+           }
+       });
+
+
+
         return v;
     }
+
     public void setFragment(Fragment fragment, boolean set){
 //        for (int i = getActivity().getSupportFragmentManager().getBackStackEntryCount(); i >= 1; i--)
 //            getActivity().getSupportFragmentManager().popBackStack();
@@ -47,6 +55,4 @@ public class HomeFragment extends Fragment {
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
     }
-
-
 }
