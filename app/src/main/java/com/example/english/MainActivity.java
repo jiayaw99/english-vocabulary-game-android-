@@ -50,8 +50,9 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
-        toolb = (Toolbar) findViewById(R.id.toolbar);
+        toolb =  findViewById(R.id.toolbar);
         setSupportActionBar(toolb);
 
         File folder = new File(getPackageResourcePath() + "\\app\\src\\main\\res\\drawable");

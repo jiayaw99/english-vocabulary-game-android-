@@ -28,7 +28,7 @@ public class FindimageFragment extends Fragment {
     private View v;
     private String [] idofbutton={"image1","image2","image3","image4"};
     private ArrayList<Integer> random=new ArrayList<>();
-    private FindimageFragment fif=new FindimageFragment();
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -56,7 +56,6 @@ public class FindimageFragment extends Fragment {
                 @Override
                 public void onClick(View view) {
                     button[ran].setBackgroundResource(R.drawable.correct);
-                    setFragment(fif,true);
                 }
             });
             for(int i=0;i!=ran&&i<4;i++)
@@ -64,7 +63,6 @@ public class FindimageFragment extends Fragment {
                     @Override
                     public void onClick(View view) {
                         button[ran].setBackgroundResource(R.drawable.wrong);
-                        setFragment(fif,true);
                     }
                 });
         }else if(keyword.equals("MEDIUM")){

@@ -5,9 +5,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import androidx.appcompat.widget.Toolbar;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -15,8 +17,6 @@ public class PlayFragment_level extends Fragment {
     private View v;
     private ChoosegameFragment choose=new ChoosegameFragment();
 
-    private FindimageFragment fif=new FindimageFragment();
-    private ChoosewordFragment cwf=new ChoosewordFragment();
 
     @Nullable
     @Override
@@ -27,38 +27,33 @@ public class PlayFragment_level extends Fragment {
         Button easy=v.findViewById(R.id.easy_button);
         Button medium=v.findViewById(R.id.medium_button);
         Button hard=v.findViewById(R.id.hard_button);
+        final Toolbar toolbar=v.findViewById(R.id.toolbar);
 
         easy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 setFragment(choose,true);
-                getActivity().getActionBar().setTitle("EASY");
                 Bundle bundle = new Bundle();
                 bundle.putString("key","EASY" );
-                fif.setArguments(bundle);
-                cwf.setArguments(bundle);
+                choose.setArguments(bundle);
             }
         });
         medium.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 setFragment(choose,true);
-                getActivity().getActionBar().setTitle("MEDIUM");
                 Bundle bundle = new Bundle();
                 bundle.putString("key","MEDIUM" );
-                fif.setArguments(bundle);
-                cwf.setArguments(bundle);
+                choose.setArguments(bundle);
             }
         });
         hard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 setFragment(choose,true);
-                getActivity().getActionBar().setTitle("HARD");
                 Bundle bundle = new Bundle();
-                bundle.putString("key","HARD" );
-                fif.setArguments(bundle);
-                cwf.setArguments(bundle);
+                bundle.putString("key","HARD");
+                choose.setArguments(bundle);
             }
         });
 
