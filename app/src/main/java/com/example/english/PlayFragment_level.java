@@ -28,7 +28,7 @@ public class PlayFragment_level extends Fragment {
         Button medium=v.findViewById(R.id.medium_button);
         Button hard=v.findViewById(R.id.hard_button);
         final Toolbar toolbar=v.findViewById(R.id.toolbar);
-
+        ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Learn English Vocabulary");
         easy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
