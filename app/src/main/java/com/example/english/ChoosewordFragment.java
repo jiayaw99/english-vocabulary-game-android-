@@ -72,6 +72,9 @@ public class ChoosewordFragment extends Fragment {
             if(!answerlist.contains(ans))
                 answerlist.add(ans);
             setrandomnumber(listimageofeasy.size(),ran,ans);
+            for(int i=0;i<listimageofeasy.size();i++){
+                getResources().getDrawable(listimageofeasy.get(i), null).clearColorFilter();
+            }
             imagehint.setImageResource(listimageofeasy.get(ans));
             for(int i=0;i<4;i++){
                 button[i].setText(listnameofeasy.get(random.get(i)));
