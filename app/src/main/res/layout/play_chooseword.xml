@@ -2,21 +2,42 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:fitsSystemWindows="true"
+    android:id="@+id/findwordincrease"
     android:background="@drawable/background"
     android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_width="match_parent"
+        android:gravity="right"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/orange_corner"
+            android:backgroundTint="@android:color/white"
+            android:textColor="@android:color/black"
+            android:id="@+id/roundnotext"
+            android:gravity="center"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            android:layout_gravity="right"
+            />
+
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="80dp"
         >
 
         <ImageView
             android:layout_marginBottom="80dp"
             android:layout_gravity="center"
-            android:layout_width="250dp"
-            android:layout_height="250dp"
+            android:layout_width="220dp"
+            android:layout_height="220dp"
             android:id="@+id/imagehint"
             android:textSize="50sp"
             android:textStyle="bold"
@@ -31,17 +52,23 @@
             android:orientation="horizontal">
 
             <Button
-                android:layout_width="wrap_content"
+                android:layout_width="80dp"
                 android:layout_height="70dp"
                 android:id="@+id/word1"
+                android:textSize="25sp"
+                android:textStyle="bold"
+                android:background="@android:color/white"
                 android:layout_weight="1.2"
                 android:layout_marginRight="20dp"
                 />
 
             <Button
-                android:layout_width="wrap_content"
+                android:layout_width="80dp"
                 android:layout_height="70dp"
                 android:id="@+id/word2"
+                android:textSize="25sp"
+                android:textStyle="bold"
+                android:background="@android:color/white"
                 android:layout_weight="1.2"
                 />
         </LinearLayout>
@@ -54,16 +81,22 @@
             android:gravity="center_horizontal"
             >
             <Button
-                android:layout_width="wrap_content"
+                android:layout_width="80dp"
                 android:layout_height="70dp"
                 android:id="@+id/word3"
+                android:textSize="25sp"
+                android:textStyle="bold"
+                android:background="@android:color/white"
                 android:layout_weight="1.2"
                 android:layout_marginRight="20dp"
                 />
             <Button
-                android:layout_width="wrap_content"
+                android:layout_width="80dp"
                 android:layout_height="70dp"
                 android:id="@+id/word4"
+                android:textSize="25sp"
+                android:textStyle="bold"
+                android:background="@android:color/white"
                 android:layout_weight="1.2"
                 />
         </LinearLayout>

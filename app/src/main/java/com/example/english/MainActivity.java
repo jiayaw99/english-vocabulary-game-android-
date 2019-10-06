@@ -36,10 +36,24 @@ public class MainActivity extends AppCompatActivity {
     final static ArrayList<Integer> listimageofmedium = new ArrayList<>();
     final static ArrayList<Integer> listimageofhard = new ArrayList<>();
 
+
+
 //    static int currentFragment = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        listimageofeasy.add(getResources().getIdentifier("bat_animal_easy", "drawable", getPackageName()));
+        listimageofeasy.add(getResources().getIdentifier("bird_animal_easy", "drawable", getPackageName()));
+        listimageofeasy.add(getResources().getIdentifier("chick_animal_easy", "drawable", getPackageName()));
+        listimageofeasy.add(getResources().getIdentifier("duck_animal_easy", "drawable", getPackageName()));
+        listimageofeasy.add(getResources().getIdentifier("elephant_animal_easy", "drawable", getPackageName()));
+        listimageofeasy.add(getResources().getIdentifier("fox_animal_easy", "drawable", getPackageName()));
+        listimageofeasy.add(getResources().getIdentifier("hen_animal_easy", "drawable", getPackageName()));
+        listimageofeasy.add(getResources().getIdentifier("rat_animal_easy", "drawable", getPackageName()));
+
+        listnameofeasy.add("bat");listnameofeasy.add("bird");listnameofeasy.add("chick");listnameofeasy.add("duck");
+        listnameofeasy.add("elephant");listnameofeasy.add("fox");listnameofeasy.add("hen");listnameofeasy.add("rat");
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.exit);
         setContentView(R.layout.activity_main);
@@ -53,29 +67,15 @@ public class MainActivity extends AppCompatActivity {
 
 
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
-        toolb =  findViewById(R.id.toolbar);
+        toolb = findViewById(R.id.toolbar);
         setSupportActionBar(toolb);
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle("Learn English Vocabulary");
+        getSupportActionBar().setTitle("Learning ABC");
 
 
-        File folder = new File(getPackageResourcePath() + "\\app\\src\\main\\res\\drawable");
-        File[] files = folder.listFiles();
-        if (files != null)
-            for (int i = 0; i < files.length; i++)
-                if (files[i].getName().toString().split("-").length == 3) {
-                    if (files[i].getName().toString().split("-")[2].toLowerCase().equals("easy")) {
-                        listimageofeasy.add(getResources().getIdentifier(files[i].getName(), "drawable", getPackageName()));
-                        listnameofeasy.add(files[i].getName().split("-")[0]);
-                    } else if (files[i].getName().toString().split("-")[2].toLowerCase().equals("medium")) {
-                        listimageofmedium.add(getResources().getIdentifier(files[i].getName(), "drawable", getPackageName()));
-                        listnameofmedium.add(files[i].getName().split("-")[0]);
-                    } else {
-                        listimageofhard.add(getResources().getIdentifier(files[i].getName(), "drawable", getPackageName()));
-                        listnameofhard.add(files[i].getName().split("-")[0]);
-                    }
-                }
+//        File folder = new File(getPackageResourcePath()+"src\\res");
+//        getfiles(folder);
 
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, home).commit();
 //
@@ -95,10 +95,10 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         if (home.isVisible()) {
-            final AlertDialog.Builder alert=new AlertDialog.Builder(this);
-            final AlertDialog dialog=alert.create();
-            LayoutInflater factory= LayoutInflater.from(this);
-            final View view=factory.inflate(R.layout.exit, null);
+            final AlertDialog.Builder alert = new AlertDialog.Builder(this);
+            final AlertDialog dialog = alert.create();
+            LayoutInflater factory = LayoutInflater.from(this);
+            final View view = factory.inflate(R.layout.exit, null);
 //            alert.setTitle("DO YOU WANT TO EXIT ?");
             dialog.setView(view);
 //            alert.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
@@ -140,5 +140,24 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         onBackPressed();
         return true;
+    }
+
+    public void getfiles(File folder) {
+        File[] files = folder.listFiles();
+        for (int i = 0; i < files.length; i++)
+            if (files[i].isDirectory())
+                getfiles(files[i]);
+            else if (files[i].getName().toString().split("_").length == 3) {
+                if (files[i].getName().toString().split("_")[2].toLowerCase().contains("easy")) {
+                    listimageofeasy.add(54656);
+                    listnameofeasy.add(getResources().getResourceEntryName(getResources().getIdentifier(files[i].getName(), "drawable", getPackageName())).split("_")[0]);
+                } else if (files[i].getName().toString().split("-")[2].toLowerCase().contains("medium")) {
+                    listimageofmedium.add(getResources().getIdentifier(files[i].getName(), "medium", getPackageName()));
+                    listnameofmedium.add(files[i].getName().split("-")[0]);
+                } else {
+                    listimageofhard.add(getResources().getIdentifier(files[i].getName(), "hard", getPackageName()));
+                    listnameofhard.add(files[i].getName().split("-")[0]);
+                }
+            }
     }
 }

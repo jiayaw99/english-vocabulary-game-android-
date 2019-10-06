@@ -6,7 +6,7 @@
     tools:context=".MainActivity"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:fitsSystemWindows="true"
-    app:title="Learn English Vocabulary"
+    app:title="Learning ABC"
     app:titleTextAppearance="@style/MyTextApperance"
     app:titleTextColor="@android:color/black"
             app:popupTheme="@style/AppTheme.PopupOverlay"

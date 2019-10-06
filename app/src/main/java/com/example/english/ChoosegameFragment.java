@@ -14,7 +14,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
-
+import static com.example.english.FindimageFragment.roundnumber;
+import static com.example.english.FindimageFragment.answerlist;
 import com.example.english.R;
 
 
@@ -63,5 +64,7 @@ public class ChoosegameFragment extends Fragment {
         fragmentTransaction.replace(R.id.fragment_container, fragment);
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
+        roundnumber=0;
+        answerlist.clear();
     }
 }

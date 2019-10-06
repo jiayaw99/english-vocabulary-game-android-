@@ -5,14 +5,14 @@
     <application
         android:allowBackup="true"
         android:icon="@mipmap/icon"
-        android:label="Learn English Vocabulary"
+        android:label="Learning ABC"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
             android:name=".MainActivity"
             android:parentActivityName=".MainActivity"
             android:screenOrientation="portrait"
-            android:label="Learn English Vocabulary"
+            android:label="Learning ABC"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
