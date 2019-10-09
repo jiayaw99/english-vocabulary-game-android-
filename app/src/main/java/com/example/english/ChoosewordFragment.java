@@ -4,6 +4,7 @@ import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.SystemClock;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,12 +26,10 @@ import java.util.Random;
 
 import static com.example.english.FindimageFragment.answerlist;
 import static com.example.english.FindimageFragment.roundnumber;
-import static com.example.english.MainActivity.listimageofeasy;
-import static com.example.english.MainActivity.listimageofmedium;
-import static com.example.english.MainActivity.listimageofhard;
-import static com.example.english.MainActivity.listnameofeasy;
-import static com.example.english.MainActivity.listnameofmedium;
-import static com.example.english.MainActivity.listnameofhard;
+import static com.example.english.MainActivity.listoflevelname;
+import static com.example.english.MainActivity.listoflevelimage;
+import static com.example.english.MainActivity.listofcategoryimage;
+import static com.example.english.MainActivity.listofcategoryname;
 
 public class ChoosewordFragment extends Fragment {
     private View v;
@@ -44,13 +43,13 @@ public class ChoosewordFragment extends Fragment {
         v = inflater.inflate(R.layout.play_chooseword, container, false);
 
         random.clear();
-        if(roundnumber>0)
-            SystemClock.sleep(1000);
-        if(roundnumber==5)
+//        if(roundnumber>0)
+//            SystemClock.sleep(1000);
+        if(roundnumber>=10)
             setFragment(new ResultFragment(),true);
 
         TextView roundtext=v.findViewById(R.id.roundnotext);
-        roundtext.setText(roundnumber+1+" / "+5);
+        roundtext.setText(roundnumber+1+" / "+10);
         final Bundle bundle = this.getArguments();
         String keyword = bundle.getString("key");
 
@@ -61,24 +60,27 @@ public class ChoosewordFragment extends Fragment {
         }
 
         ImageView imagehint=v.findViewById(R.id.imagehint);
-        if (keyword.equals("EASY") ) {
+        if (keyword.equals("easy")||keyword.equals("medium")||keyword.equals("hard")) {
+            int whichcategory = 0;
+            for(int i=0;i<3;i++){
+                if(listoflevelname[i].get(0).split("-")[2].equals(keyword)){
+                    whichcategory=i;break;
+                }
+            }
             final int ran=new Random().nextInt(4);
-            int ans=new Random().nextInt(listimageofeasy.size());
+            int ans=new Random().nextInt(listoflevelname[whichcategory].size());
             while(answerlist.contains(ans)){
-                ans=new Random().nextInt(listimageofeasy.size());
+                ans=new Random().nextInt(listoflevelname[whichcategory].size());
                 if(!answerlist.contains(ans)){
                     answerlist.add(ans);break;}
             }
             if(!answerlist.contains(ans))
                 answerlist.add(ans);
-            setrandomnumber(listimageofeasy.size(),ran,ans);
-            for(int i=0;i<listimageofeasy.size();i++){
-                getResources().getDrawable(listimageofeasy.get(i), null).clearColorFilter();
-            }
-            imagehint.setImageResource(listimageofeasy.get(ans));
+            setrandomnumber(listoflevelname[whichcategory].size(),ran,ans);
+            imagehint.setImageResource(listoflevelimage[whichcategory].get(ans));
+//            imagehint.getDrawable().clearColorFilter();
             for(int i=0;i<4;i++){
-                button[i].setText(listnameofeasy.get(random.get(i)));
-                button[i].getBackground().clearColorFilter();
+                button[i].setText(listoflevelname[whichcategory].get(random.get(i)).split("-")[0]);
             }
             button[ran].setOnClickListener(new View.OnClickListener() {
                 @RequiresApi(api = Build.VERSION_CODES.M)
@@ -86,7 +88,12 @@ public class ChoosewordFragment extends Fragment {
                 public void onClick(View view) {
                     freezebutton(button);
                     button[ran].setBackgroundColor(Color.GREEN);
-                    reload(bundle);
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            reload(bundle);
+                        }
+                    },1000);
                     roundnumber++;
                 }
             });
@@ -99,18 +106,72 @@ public class ChoosewordFragment extends Fragment {
                             freezebutton(button);
                             button[finalI].setBackgroundColor(Color.RED);
                             button[ran].setBackgroundColor(Color.GREEN);
-                            reload(bundle);
+                            new Handler().postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    reload(bundle);
+                                }
+                            },1000);
                             roundnumber++;
                         }
                     });
             }
-        }else if(keyword.equals("MEDIUM")){
-
-        }else if(keyword.equals("HARD")){
-
-        }
-        else {
-
+        } else {
+            int whichcategory = 0;
+            for(int i=0;i<16;i++){
+                if(listofcategoryname[i].get(0).split("-")[1].equals(keyword)){
+                    whichcategory=i;break;
+                }
+            }
+            final int ran=new Random().nextInt(4);
+            int ans=new Random().nextInt(listofcategoryname[whichcategory].size());
+            while(answerlist.contains(ans)){
+                ans=new Random().nextInt(listofcategoryname[whichcategory].size());
+                if(!answerlist.contains(ans)){
+                    answerlist.add(ans);break;}
+            }
+            if(!answerlist.contains(ans))
+                answerlist.add(ans);
+            setrandomnumber(listofcategoryname[whichcategory].size(),ran,ans);
+            imagehint.setImageResource(listofcategoryimage[whichcategory].get(ans));
+//            imagehint.getDrawable().clearColorFilter();
+            for(int i=0;i<4;i++){
+                button[i].setText(listofcategoryname[whichcategory].get(random.get(i)).split("-")[0]);
+            }
+            button[ran].setOnClickListener(new View.OnClickListener() {
+                @RequiresApi(api = Build.VERSION_CODES.M)
+                @Override
+                public void onClick(View view) {
+                    freezebutton(button);
+                    button[ran].setBackgroundColor(Color.GREEN);
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            reload(bundle);
+                        }
+                    },1000);
+                    roundnumber++;
+                }
+            });
+            for(int i=0;i<4;i++) {
+                final int finalI = i;
+                if(i!=ran)
+                    button[i].setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            freezebutton(button);
+                            button[finalI].setBackgroundColor(Color.RED);
+                            button[ran].setBackgroundColor(Color.GREEN);
+                            new Handler().postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    reload(bundle);
+                                }
+                            },1000);
+                            roundnumber++;
+                        }
+                    });
+            }
         }
 
         return v;
@@ -120,7 +181,7 @@ public class ChoosewordFragment extends Fragment {
 //        for (int i = getActivity().getSupportFragmentManager().getBackStackEntryCount(); i >= 1; i--)
 //            getActivity().getSupportFragmentManager().popBackStack();
         FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-        if(roundnumber<4)
+        if(roundnumber<10)
             fragmentTransaction.replace(R.id.findwordincrease, fragment);
         else
             fragmentTransaction.replace(R.id.fragment_container, fragment);

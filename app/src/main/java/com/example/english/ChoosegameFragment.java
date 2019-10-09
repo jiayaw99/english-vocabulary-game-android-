@@ -35,7 +35,7 @@ public class ChoosegameFragment extends Fragment {
         Bundle bundle = this.getArguments();
         image.setArguments(bundle);
         word.setArguments(bundle);
-        ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle(bundle.getString("key"));
+        ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle(bundle.getString("key").toUpperCase());
 //        TextView textview = (TextView)toolb.findViewById(R.id.toolbartext);
 //        textview.setText(bundle.getString("key"));
 //        ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayShowTitleEnabled(false);

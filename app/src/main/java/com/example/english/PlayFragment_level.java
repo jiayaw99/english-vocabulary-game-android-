@@ -34,7 +34,7 @@ public class PlayFragment_level extends Fragment {
             public void onClick(View view) {
                 setFragment(choose,true);
                 Bundle bundle = new Bundle();
-                bundle.putString("key","EASY" );
+                bundle.putString("key","easy" );
                 choose.setArguments(bundle);
             }
         });
@@ -43,7 +43,7 @@ public class PlayFragment_level extends Fragment {
             public void onClick(View view) {
                 setFragment(choose,true);
                 Bundle bundle = new Bundle();
-                bundle.putString("key","MEDIUM" );
+                bundle.putString("key","medium" );
                 choose.setArguments(bundle);
             }
         });
@@ -52,7 +52,7 @@ public class PlayFragment_level extends Fragment {
             public void onClick(View view) {
                 setFragment(choose,true);
                 Bundle bundle = new Bundle();
-                bundle.putString("key","HARD");
+                bundle.putString("key","hard");
                 choose.setArguments(bundle);
             }
         });
