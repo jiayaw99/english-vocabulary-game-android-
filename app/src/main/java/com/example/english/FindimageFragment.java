@@ -209,9 +209,12 @@ public class FindimageFragment extends Fragment {
     }
 
     public void reload(Bundle bundle,ImageButton[] button) {
+        if(roundnumber>9)
+            setFragment(new ResultFragment(),true);
+        else{
         FindimageFragment newone = new FindimageFragment();
         setFragment(newone, true);
-        newone.setArguments(bundle);
+        newone.setArguments(bundle);}
         clearbutton(button);
     }
 

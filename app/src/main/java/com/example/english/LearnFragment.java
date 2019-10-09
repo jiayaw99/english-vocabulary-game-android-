@@ -8,6 +8,7 @@ import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -21,6 +22,7 @@ public class LearnFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         v = inflater.inflate(R.layout.fragment_learn, container, false);
+        ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Learning ABC");
         for (int i = 0; i < 16; i++)
             nameofbutton[i] = "category" + (i + 1);
         LinearLayout[] button = new LinearLayout[16];

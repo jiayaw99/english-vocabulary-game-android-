@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import static com.example.english.MainActivity.listofcategoryimage;
 import static com.example.english.MainActivity.listofcategoryname;
@@ -31,7 +32,7 @@ private int page=1;
         final Button next=v.findViewById(R.id.next);
         final Button previous=v.findViewById(R.id.previous);
         previous.setVisibility(View.INVISIBLE);
-
+        ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle(keyword.toUpperCase());
         int whichcategory = 0;
         for(int i=0;i<16;i++){
             if(listofcategoryname[i].get(0).split("-")[1].equals(keyword)){

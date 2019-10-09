@@ -2,6 +2,7 @@ package com.example.english;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -23,6 +24,7 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
 
     private Toolbar toolb;
+    private MediaPlayer mediaPlayer;
     private Button back;
     private static DrawerLayout drawerLayout;
     private BottomNavigationView bottomNav;
@@ -159,7 +161,7 @@ public class MainActivity extends AppCompatActivity {
         generalimagelist.add(getResources().getIdentifier("disappointed_feeling_emotion_hard", "drawable", getPackageName()));
         generalimagelist.add(getResources().getIdentifier("eager_feeling_emotion_hard", "drawable", getPackageName()));
         generalimagelist.add(getResources().getIdentifier("ecstatic_feeling_emotion_hard", "drawable", getPackageName()));
-        generalimagelist.add(getResources().getIdentifier("embarresed_feeling_emotion_hard", "drawable", getPackageName()));
+        generalimagelist.add(getResources().getIdentifier("embarrassed_feeling_emotion_hard", "drawable", getPackageName()));
         generalimagelist.add(getResources().getIdentifier("exhausted_feeling_emotion_hard", "drawable", getPackageName()));
         generalimagelist.add(getResources().getIdentifier("frighten_feeling_emotion_medium", "drawable", getPackageName()));
         generalimagelist.add(getResources().getIdentifier("grumpy_feeling_emotion_hard", "drawable", getPackageName()));
@@ -491,7 +493,7 @@ public class MainActivity extends AppCompatActivity {
         generalnamelist.add("disappointed-feeling&emotion-hard");
         generalnamelist.add("eager-feeling&emotion-hard");
         generalnamelist.add("ecstatic-feeling&emotion-hard");
-        generalnamelist.add("embarresed-feeling&emotion-hard");
+        generalnamelist.add("embarrassed-feeling&emotion-hard");
         generalnamelist.add("exhausted-feeling&emotion-hard");
         generalnamelist.add("frighten-feeling&emotion-medium");
         generalnamelist.add("grumpy-feeling&emotion-hard");
@@ -770,6 +772,11 @@ public class MainActivity extends AppCompatActivity {
 //                onBackPressed();
 //            }
 //        });
+        int resID=getResources().getIdentifier("cute", "raw", getPackageName());
+        mediaPlayer= MediaPlayer.create(this,resID);
+        mediaPlayer.setLooping(true);
+        mediaPlayer.start();
+
 
 
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
@@ -846,6 +853,14 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         onBackPressed();
         return true;
+    }
+    public void onPause() {
+        super.onPause();
+        mediaPlayer.pause();
+    }
+    public void onResume() {
+        super.onResume();
+        mediaPlayer.start();
     }
 
 //    public void getfiles(File folder) {

@@ -45,8 +45,7 @@ public class ChoosewordFragment extends Fragment {
         random.clear();
 //        if(roundnumber>0)
 //            SystemClock.sleep(1000);
-        if(roundnumber>=10)
-            setFragment(new ResultFragment(),true);
+
 
         TextView roundtext=v.findViewById(R.id.roundnotext);
         roundtext.setText(roundnumber+1+" / "+10);
@@ -190,9 +189,12 @@ public class ChoosewordFragment extends Fragment {
     }
 
     public void reload(Bundle bundle){
+        if(roundnumber>9)
+            setFragment(new ResultFragment(),true);
+        else{
         ChoosewordFragment newone=new ChoosewordFragment();
         setFragment(newone, true);
-        newone.setArguments(bundle);
+        newone.setArguments(bundle);}
     }
 
     public void setrandomnumber(int listsize,int notthislocation,int answer){

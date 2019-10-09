@@ -10,6 +10,7 @@ import android.widget.Button;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
@@ -28,7 +29,7 @@ public class HomeFragment extends Fragment {
 
         Button learn=v.findViewById(R.id.learn_button);
         Button play=v.findViewById(R.id.play_button);
-
+        ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Learning ABC");
         learn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
