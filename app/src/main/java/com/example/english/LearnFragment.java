@@ -16,7 +16,6 @@ import static com.example.english.MainActivity.listofcategoryname;
 public class LearnFragment extends Fragment {
     private View v;
     private String[] nameofbutton = new String[16];
-    private LearnDetailFragment detail= new LearnDetailFragment();
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -31,6 +30,7 @@ public class LearnFragment extends Fragment {
             button[i].setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    LearnDetailFragment detail= new LearnDetailFragment();
                     setFragment(detail,true);
                     Bundle bundle = new Bundle();
                     bundle.putString("key",listofcategoryname[finalI].get(0).split("-")[1]);

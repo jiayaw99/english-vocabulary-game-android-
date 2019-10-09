@@ -18,7 +18,7 @@
         android:layout_gravity="center"
         />
         <TextView
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="40dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textStyle="bold"
@@ -26,6 +26,8 @@
             android:textColor="@android:color/black"
             android:textSize="35sp"
             android:layout_gravity="center"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
             android:background="@drawable/orange_corner"
             android:backgroundTint="@android:color/white"/>
         <RelativeLayout
