@@ -31,6 +31,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
+        android:splitMotionEvents="false"
         android:layout_marginTop="80dp"
         >
 
@@ -43,6 +44,7 @@
             android:layout_gravity="center_horizontal"
             android:paddingBottom="20dp"
             android:paddingTop="10dp"
+            android:splitMotionEvents="false"
             android:orientation="horizontal">
 
     <ImageButton
@@ -67,6 +69,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
+            android:splitMotionEvents="false"
             android:layout_gravity="center_horizontal">
     <ImageButton
         android:layout_width="150dp"

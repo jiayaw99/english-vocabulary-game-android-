@@ -2,6 +2,7 @@ package com.example.english;
 
 import android.graphics.Color;
 import android.graphics.PorterDuff;
+import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -24,6 +25,7 @@ import androidx.fragment.app.FragmentTransaction;
 import java.util.ArrayList;
 import java.util.Random;
 
+import static com.example.english.FindimageFragment.correctans;
 import static com.example.english.FindimageFragment.answerlist;
 import static com.example.english.FindimageFragment.roundnumber;
 import static com.example.english.MainActivity.listoflevelname;
@@ -33,6 +35,7 @@ import static com.example.english.MainActivity.listofcategoryname;
 
 public class ChoosewordFragment extends Fragment {
     private View v;
+    public MediaPlayer mp=new MediaPlayer();
     private String [] idofbutton={"word1","word2","word3","word4"};
     private ArrayList<Integer> random=new ArrayList<>();
 
@@ -47,7 +50,7 @@ public class ChoosewordFragment extends Fragment {
 //            SystemClock.sleep(1000);
 
 
-        TextView roundtext=v.findViewById(R.id.roundnotext);
+        TextView roundtext= (TextView) v.findViewById(R.id.roundnotext);
         roundtext.setText(roundnumber+1+" / "+10);
         final Bundle bundle = this.getArguments();
         String keyword = bundle.getString("key");
@@ -55,10 +58,10 @@ public class ChoosewordFragment extends Fragment {
         final Button[] button=new Button[4];
 
         for(int i=0;i<4;i++){
-            button[i]=v.findViewById(getResources().getIdentifier(idofbutton[i], "id", getActivity().getPackageName()));
+            button[i]= (Button) v.findViewById(getResources().getIdentifier(idofbutton[i], "id", getActivity().getPackageName()));
         }
 
-        ImageView imagehint=v.findViewById(R.id.imagehint);
+        ImageView imagehint= (ImageView) v.findViewById(R.id.imagehint);
         if (keyword.equals("easy")||keyword.equals("medium")||keyword.equals("hard")) {
             int whichcategory = 0;
             for(int i=0;i<3;i++){
@@ -82,10 +85,13 @@ public class ChoosewordFragment extends Fragment {
                 button[i].setText(listoflevelname[whichcategory].get(random.get(i)).split("-")[0]);
             }
             button[ran].setOnClickListener(new View.OnClickListener() {
-                @RequiresApi(api = Build.VERSION_CODES.M)
                 @Override
                 public void onClick(View view) {
                     freezebutton(button);
+                    mp = MediaPlayer.create(getActivity(),R.raw.correct_sound);
+                    mp.start();
+                    release(mp);
+                    correctans++;
                     button[ran].setBackgroundColor(Color.GREEN);
                     new Handler().postDelayed(new Runnable() {
                         @Override
@@ -103,6 +109,9 @@ public class ChoosewordFragment extends Fragment {
                         @Override
                         public void onClick(View view) {
                             freezebutton(button);
+                            mp = MediaPlayer.create(getActivity(),R.raw.wrong_sound);
+                            mp.start();
+                            release(mp);
                             button[finalI].setBackgroundColor(Color.RED);
                             button[ran].setBackgroundColor(Color.GREEN);
                             new Handler().postDelayed(new Runnable() {
@@ -138,10 +147,13 @@ public class ChoosewordFragment extends Fragment {
                 button[i].setText(listofcategoryname[whichcategory].get(random.get(i)).split("-")[0]);
             }
             button[ran].setOnClickListener(new View.OnClickListener() {
-                @RequiresApi(api = Build.VERSION_CODES.M)
                 @Override
                 public void onClick(View view) {
                     freezebutton(button);
+                    mp = MediaPlayer.create(getActivity(),R.raw.correct_sound);
+                    mp.start();
+                    release(mp);
+                    correctans++;
                     button[ran].setBackgroundColor(Color.GREEN);
                     new Handler().postDelayed(new Runnable() {
                         @Override
@@ -159,6 +171,9 @@ public class ChoosewordFragment extends Fragment {
                         @Override
                         public void onClick(View view) {
                             freezebutton(button);
+                            mp = MediaPlayer.create(getActivity(),R.raw.wrong_sound);
+                            mp.start();
+                            release(mp);
                             button[finalI].setBackgroundColor(Color.RED);
                             button[ran].setBackgroundColor(Color.GREEN);
                             new Handler().postDelayed(new Runnable() {
@@ -180,17 +195,19 @@ public class ChoosewordFragment extends Fragment {
 //        for (int i = getActivity().getSupportFragmentManager().getBackStackEntryCount(); i >= 1; i--)
 //            getActivity().getSupportFragmentManager().popBackStack();
         FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-        if(roundnumber<10)
             fragmentTransaction.replace(R.id.findwordincrease, fragment);
-        else
-            fragmentTransaction.replace(R.id.fragment_container, fragment);
+//     fragmentTransaction.replace(R.id.fragment_container, fragment);
 //        fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
     }
 
     public void reload(Bundle bundle){
-        if(roundnumber>9)
-            setFragment(new ResultFragment(),true);
+        if(roundnumber>9) {
+            bundle.putInt("correct", correctans);
+            ResultFragment rf=new ResultFragment();
+            rf.setArguments(bundle);
+            setFragment(rf, true);
+        }
         else{
         ChoosewordFragment newone=new ChoosewordFragment();
         setFragment(newone, true);
@@ -218,6 +235,14 @@ public class ChoosewordFragment extends Fragment {
         for(int i=0;i<button.length;i++){
             button[i].setClickable(false);
         }
+    }
+    public void release(MediaPlayer mp){
+        mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mediaPlayer) {
+                mediaPlayer.release();
+            }
+        });
     }
 }
 

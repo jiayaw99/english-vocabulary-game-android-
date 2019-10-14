@@ -30,6 +30,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
+        android:splitMotionEvents="false"
         android:layout_marginTop="80dp"
         >
 
@@ -49,6 +50,7 @@
             android:gravity="center_horizontal"
             android:layout_marginBottom="20dp"
             android:weightSum="3"
+            android:splitMotionEvents="false"
             android:orientation="horizontal">
 
             <Button
@@ -80,6 +82,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:weightSum="3"
+            android:splitMotionEvents="false"
             android:gravity="center_horizontal"
             >
             <Button

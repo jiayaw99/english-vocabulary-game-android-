@@ -13,6 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
+        android:splitMotionEvents="false"
         android:backgroundTint="@android:color/transparent"
         >
         <Button
@@ -22,7 +23,7 @@
             android:paddingTop="30dp"
             android:id="@+id/chooseword"
             android:layout_marginBottom="30dp"
-            android:text="CHOOSE WORD →"
+            android:text="CHOOSE WORD→"
             android:textSize="30sp"
             android:textStyle="bold"
             android:backgroundTint="@android:color/holo_red_light"

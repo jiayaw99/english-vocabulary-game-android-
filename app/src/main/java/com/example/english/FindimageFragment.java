@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.graphics.ColorFilter;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
+import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -38,11 +39,12 @@ import static com.example.english.MainActivity.listofcategoryname;
 
 public class FindimageFragment extends Fragment {
     private View v;
+    private MediaPlayer mp=new MediaPlayer();
     private String[] idofbutton = {"image1", "image2", "image3", "image4"};
     private ArrayList<Integer> random = new ArrayList<>();
     static ArrayList<Integer> answerlist = new ArrayList<>();
-    private ArrayList[] arrayoflist;
     static int roundnumber = 0;
+    static int correctans=0;
 
     @Nullable
     @Override
@@ -53,8 +55,8 @@ public class FindimageFragment extends Fragment {
         v = inflater.inflate(R.layout.play_findimage, container, false);
 
         random.clear();
-        if (roundnumber >= 10)
-            setFragment(new ResultFragment(), true);
+//        if (roundnumber >= 10)
+//            setFragment(new ResultFragment(), true);
 
         TextView roundtext = v.findViewById(R.id.roundnotext);
         roundtext.setText(roundnumber + 1 + " / " + 10);
@@ -96,6 +98,10 @@ public class FindimageFragment extends Fragment {
                 @Override
                 public void onClick(View view) {
                     freezebutton(button);
+                    mp = MediaPlayer.create(getActivity(),R.raw.correct_sound);
+                    mp.start();
+                    release(mp);
+                    correctans++;
                     button[ran].getBackground().setColorFilter(Color.GRAY, PorterDuff.Mode.MULTIPLY);
                     button[ran].setImageResource(R.drawable.correct);
                     new Handler().postDelayed(new Runnable() {
@@ -114,6 +120,9 @@ public class FindimageFragment extends Fragment {
                         @Override
                         public void onClick(View view) {
                             freezebutton(button);
+                            mp = MediaPlayer.create(getActivity(),R.raw.wrong_sound);
+                            mp.start();
+                            release(mp);
                             button[finalI].setImageResource(R.drawable.wrong);
                             button[finalI].getBackground().setColorFilter(Color.GRAY, PorterDuff.Mode.MULTIPLY);
                             button[ran].setImageResource(R.drawable.correct);
@@ -157,6 +166,10 @@ public class FindimageFragment extends Fragment {
                 @Override
                 public void onClick(View view) {
                     freezebutton(button);
+                    mp = MediaPlayer.create(getActivity(),R.raw.correct_sound);
+                    mp.start();
+                    release(mp);
+                    correctans++;
                     button[ran].getBackground().setColorFilter(Color.GRAY, PorterDuff.Mode.MULTIPLY);
                     button[ran].setImageResource(R.drawable.correct);
                     new Handler().postDelayed(new Runnable() {
@@ -175,6 +188,9 @@ public class FindimageFragment extends Fragment {
                         @Override
                         public void onClick(View view) {
                             freezebutton(button);
+                            mp = MediaPlayer.create(getActivity(),R.raw.wrong_sound);
+                            mp.start();
+                            release(mp);
                             button[finalI].setImageResource(R.drawable.wrong);
                             button[finalI].getBackground().setColorFilter(Color.GRAY, PorterDuff.Mode.MULTIPLY);
                             button[ran].setImageResource(R.drawable.correct);
@@ -200,17 +216,19 @@ public class FindimageFragment extends Fragment {
 //        for (int i = getActivity().getSupportFragmentManager().getBackStackEntryCount(); i >= 1; i--)
 //            getActivity().getSupportFragmentManager().popBackStack();
         FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-        if (roundnumber < 10)
             fragmentTransaction.replace(R.id.findimageincrease, fragment);
-        else
-            fragmentTransaction.replace(R.id.fragment_container, fragment);
+//            fragmentTransaction.replace(R.id.fragment_container, fragment);
 //        fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
     }
 
     public void reload(Bundle bundle,ImageButton[] button) {
-        if(roundnumber>9)
-            setFragment(new ResultFragment(),true);
+        if(roundnumber>9){
+            bundle.putInt("correct", correctans);
+            ResultFragment rf=new ResultFragment();
+            rf.setArguments(bundle);
+            setFragment(rf, true);
+        }
         else{
         FindimageFragment newone = new FindimageFragment();
         setFragment(newone, true);
@@ -243,5 +261,13 @@ public class FindimageFragment extends Fragment {
         for (int i = 0; i < button.length; i++) {
             button[i].getBackground().clearColorFilter();
         }
+    }
+    public void release(MediaPlayer mp){
+        mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mediaPlayer) {
+                mediaPlayer.release();
+            }
+        });
     }
 }

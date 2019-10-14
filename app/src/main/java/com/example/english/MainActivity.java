@@ -2,6 +2,8 @@ package com.example.english;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
+import android.content.Context;
+import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -35,8 +37,8 @@ public class MainActivity extends AppCompatActivity {
     final static ArrayList<Integer> generalimagelist = new ArrayList<>();
     final static ArrayList<Integer>[] listofcategoryimage = new ArrayList[16];
     final static ArrayList<String>[] listofcategoryname = new ArrayList[16];
-    final static ArrayList<String> []listoflevelname = new ArrayList[3];
-    final static ArrayList<Integer> []listoflevelimage = new ArrayList[3];
+    final static ArrayList<String>[] listoflevelname = new ArrayList[3];
+    final static ArrayList<Integer>[] listoflevelimage = new ArrayList[3];
 
 
 //    static int currentFragment = 0;
@@ -44,15 +46,13 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-        for(int i=0;i<16;i++)
-        {
-            if(i<3)
-            {
-                listoflevelimage[i]=new ArrayList<>();
-                listoflevelname[i]=new ArrayList<>();
+        for (int i = 0; i < 16; i++) {
+            if (i < 3) {
+                listoflevelimage[i] = new ArrayList<>();
+                listoflevelname[i] = new ArrayList<>();
             }
-            listofcategoryname[i]=new ArrayList();
-            listofcategoryimage[i]=new ArrayList();
+            listofcategoryname[i] = new ArrayList();
+            listofcategoryimage[i] = new ArrayList();
         }
 
         generalimagelist.add(getResources().getIdentifier("absorb_action_hard", "drawable", getPackageName()));
@@ -207,7 +207,7 @@ public class MainActivity extends AppCompatActivity {
         generalimagelist.add(getResources().getIdentifier("watering_can_garden_easy", "drawable", getPackageName()));
         generalimagelist.add(getResources().getIdentifier("web_garden_easy", "drawable", getPackageName()));
         generalimagelist.add(getResources().getIdentifier("worm_garden_easy", "drawable", getPackageName()));
-        generalimagelist.add(getResources().getIdentifier("acute_angles_math_hard", "drawable", getPackageName()));
+        generalimagelist.add(getResources().getIdentifier("acute_angle_math_hard", "drawable", getPackageName()));
         generalimagelist.add(getResources().getIdentifier("balance_math_medium", "drawable", getPackageName()));
         generalimagelist.add(getResources().getIdentifier("compare_math_hard", "drawable", getPackageName()));
         generalimagelist.add(getResources().getIdentifier("decagon_math_hard", "drawable", getPackageName()));
@@ -539,7 +539,7 @@ public class MainActivity extends AppCompatActivity {
         generalnamelist.add("watering can-garden-easy");
         generalnamelist.add("web-garden-easy");
         generalnamelist.add("worm-garden-easy");
-        generalnamelist.add("acute angles-math-hard");
+        generalnamelist.add("acute angle-math-hard");
         generalnamelist.add("balance-math-medium");
         generalnamelist.add("compare-math-hard");
         generalnamelist.add("decagon-math-hard");
@@ -720,18 +720,20 @@ public class MainActivity extends AppCompatActivity {
 
         for (int k = 0; k < 16; k++) {
             for (int i = 0; i < generalnamelist.size(); i++) {
-                if(listofcategoryimage[k].size()==0){
-                    Boolean canadd=true;
-                    for(int p=0;p<k;p++){
-                    if(listofcategoryname[p].get(0).toString().contains(generalnamelist.get(i).split("-")[1])){
-                        canadd=false;break;}
+                if (listofcategoryimage[k].size() == 0) {
+                    Boolean canadd = true;
+                    for (int p = 0; p < k; p++) {
+                        if (listofcategoryname[p].get(0).toString().contains(generalnamelist.get(i).split("-")[1])) {
+                            canadd = false;
+                            break;
+                        }
                     }
-                    if(canadd){
+                    if (canadd) {
+                        listofcategoryname[k].add(generalnamelist.get(i));
+                        listofcategoryimage[k].add(generalimagelist.get(i));
+                    }
+                } else if (listofcategoryname[k].get(0).toString().contains(generalnamelist.get(i).split("-")[1])) {
                     listofcategoryname[k].add(generalnamelist.get(i));
-                    listofcategoryimage[k].add(generalimagelist.get(i));}
-                }
-                else if(listofcategoryname[k].get(0).toString().contains(generalnamelist.get(i).split("-")[1])){
-                 listofcategoryname[k].add(generalnamelist.get(i));
                     listofcategoryimage[k].add(generalimagelist.get(i));
                 }
 
@@ -749,14 +751,14 @@ public class MainActivity extends AppCompatActivity {
 //        listnameofeasy.add("bat");listnameofeasy.add("bird");listnameofeasy.add("chick");listnameofeasy.add("duck");
 //        listnameofeasy.add("elephant");listnameofeasy.add("fox");listnameofeasy.add("hen");listnameofeasy.add("rat");
 
-        for(int i=0;i<generalnamelist.size();i++){
-            if(generalnamelist.get(i).split("-")[2].equals("easy")){
+        for (int i = 0; i < generalnamelist.size(); i++) {
+            if (generalnamelist.get(i).split("-")[2].equals("easy")) {
                 listoflevelname[0].add(generalnamelist.get(i));
                 listoflevelimage[0].add(generalimagelist.get(i));
-            }else if(generalnamelist.get(i).split("-")[2].equals("medium")){
+            } else if (generalnamelist.get(i).split("-")[2].equals("medium")) {
                 listoflevelname[1].add(generalnamelist.get(i));
                 listoflevelimage[1].add(generalimagelist.get(i));
-            }else{
+            } else {
                 listoflevelname[2].add(generalnamelist.get(i));
                 listoflevelimage[2].add(generalimagelist.get(i));
             }
@@ -772,11 +774,30 @@ public class MainActivity extends AppCompatActivity {
 //                onBackPressed();
 //            }
 //        });
-        int resID=getResources().getIdentifier("cute", "raw", getPackageName());
-        mediaPlayer= MediaPlayer.create(this,resID);
-        mediaPlayer.setLooping(true);
+        final int[] currentsong = {1};
+        final int background1 = getResources().getIdentifier("background1", "raw", getPackageName());
+        final int background2 = getResources().getIdentifier("background2", "raw", getPackageName());
+        final int background3 = getResources().getIdentifier("background3", "raw", getPackageName());
+        mediaPlayer = MediaPlayer.create(getApplicationContext(), background1);
         mediaPlayer.start();
-
+        mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer notusing) {
+                mediaPlayer.release();
+                if (currentsong[0] == 1) {
+                    mediaPlayer = MediaPlayer.create(getApplicationContext(), background2);
+                    currentsong[0] = 2;
+                } else if (currentsong[0] == 2) {
+                    mediaPlayer = MediaPlayer.create(getApplicationContext(), background3);
+                    currentsong[0] = 3;
+                } else if (currentsong[0] == 3) {
+                    mediaPlayer = MediaPlayer.create(getApplicationContext(), background1);
+                    currentsong[0] = 1;
+                }
+                mediaPlayer.start();
+                mediaPlayer.setOnCompletionListener(this);
+            }
+        });
 
 
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
@@ -854,10 +875,12 @@ public class MainActivity extends AppCompatActivity {
         onBackPressed();
         return true;
     }
+
     public void onPause() {
         super.onPause();
         mediaPlayer.pause();
     }
+
     public void onResume() {
         super.onResume();
         mediaPlayer.start();
